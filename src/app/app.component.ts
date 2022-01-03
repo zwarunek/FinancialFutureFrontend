@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {environment} from "../environments/environment";
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,11 @@ export class AppComponent {
   title = 'FinancialFuture';
   loading: boolean = false;
   numberOfLoading: number = 0;
+  prod: boolean;
+  env: string;
   constructor() {
+    this.prod = environment.production;
+    this.env = environment.env;
   }
   loadingAdd(){
     this.numberOfLoading++;

@@ -42,3 +42,19 @@
   background-color: var(--surface-b);
   color: var(--text-color);
 }
+.env-overlay {
+  position: absolute;
+  top: 30px;
+  left: -90px;
+  width: 20rem;
+  height: 5rem;
+  transform: rotate(
+    315deg);
+  pointer-events: none;
+}
+.dev{
+  background-color: rgb(255 255 0 / 10%);
+}
+.staging{
+  background-color: rgb(0 255 0 / 10%);
+}

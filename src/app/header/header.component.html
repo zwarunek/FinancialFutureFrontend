@@ -1,4 +1,7 @@
 <p-menubar [model]="items">
+  <ng-template pTemplate="start">
+    <img src="assets/logos/FinancialFutureLogo.svg" height="40" class="p-mr-2">
+  </ng-template>
   <div *ngIf="!isLoggedIn">
     <button pButton pRipple type="button" label="Log In" (click)="test()" class="p-button-text mr-3"></button>
     <button pButton pRipple label="Sign Up"></button>

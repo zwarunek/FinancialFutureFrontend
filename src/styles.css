@@ -8,3 +8,7 @@ html,body{
   background-color: var(--surface-b);
   font-family: Ember, Arial,sans-serif;
 }
+body{
+  margin: 0;
+  padding: 8px;
+}
