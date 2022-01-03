@@ -1,0 +1,12 @@
+<p-menubar [model]="items">
+  <div *ngIf="!isLoggedIn">
+    <button pButton pRipple type="button" label="Log In" (click)="test()" class="p-button-text mr-3"></button>
+    <button pButton pRipple label="Sign Up"></button>
+  </div>
+  <div *ngIf="isLoggedIn">
+    <button pButton (click)="menu.toggle($event)" class="p-button-text no-label">
+        <p-avatar size="large" [label]="user.firstName.substring(0, 1)"></p-avatar>
+    </button>
+  </div>
+</p-menubar>
+<p-menu #menu [popup]="true" [model]="accountInfoItems"></p-menu>
