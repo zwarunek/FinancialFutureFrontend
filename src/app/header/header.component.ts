@@ -5,6 +5,7 @@ import {AuthenticationService} from "../_services";
 import {Router} from "@angular/router";
 import { HttpClient } from '@angular/common/http';
 import {BehaviorSubject} from "rxjs";
+import {AppComponent} from "../app.component";
 
 const VIEW_MODE_KEY = "view-mode";
 
@@ -23,7 +24,7 @@ export class HeaderComponent implements OnInit {
   items: MenuItem[];
   viewMode: string = "bootstrap4-dark-blue";
 
-  constructor(public themeService: ThemeService, private http: HttpClient, private router: Router, private authService: AuthenticationService) {
+  constructor(private app: AppComponent, public themeService: ThemeService, private http: HttpClient, public router: Router, private authService: AuthenticationService) {
     this.items = [
       {
         label: 'File',
@@ -178,7 +179,7 @@ export class HeaderComponent implements OnInit {
   }
 
   test() {
-
+    console.log(this.router.url)
   }
 
   private toggleViewMode() {
@@ -194,6 +195,13 @@ export class HeaderComponent implements OnInit {
   }
   getItemsForAccountMenu(){
     return [
+      {
+        label: 'Start Loading',
+        icon: 'pi pi-spin pi-spinner',
+        command: () => {
+          this.app.loadingAdd();
+        }
+      },
       {
         label: this.viewMode.includes("dark")? "Light Mode" : "Dark Mode",
         icon: this.viewMode.includes("dark")? "pi pi-sun" : "pi pi-moon",

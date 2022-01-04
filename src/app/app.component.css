@@ -20,7 +20,13 @@
 @keyframes custom-progress-spinner-color {
 
   0% {
-    stroke: #FFA62B;
+    stroke: var(--primary-color);
+  }
+  50% {
+    stroke: var(--surface-d);
+  }
+  100% {
+    stroke: var(--primary-color);
   }
 }
 

@@ -25,6 +25,11 @@ export class AuthenticationService {
     }, httpOptions)
   }
 
+  reCaptchaValidation(response: string): any {
+    // @ts-ignore
+    return this.http.post(`http://localhost:4200/api/recaptcha-validate`, {response: response}, httpOptions);
+  }
+
   signOut(): void {
     window.sessionStorage.clear();
     localStorage.clear();

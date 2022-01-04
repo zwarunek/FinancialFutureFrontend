@@ -22,6 +22,11 @@ import {CheckboxModule} from "primeng/checkbox";
 import {MenuModule} from "primeng/menu";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {AvatarModule} from "primeng/avatar";
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { PasswordResetComponent } from './password-reset/password-reset.component';
+import {CaptchaModule} from "primeng/captcha";
+import {MessagesModule} from 'primeng/messages';
+import {MessageModule} from 'primeng/message';
 
 
 @NgModule({
@@ -31,7 +36,9 @@ import {AvatarModule} from "primeng/avatar";
     HomeComponent,
     RegisterComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    ForgotPasswordComponent,
+    PasswordResetComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'serverApp'}),
@@ -49,7 +56,10 @@ import {AvatarModule} from "primeng/avatar";
     ReactiveFormsModule,
     MenuModule,
     BrowserAnimationsModule,
-    AvatarModule
+    AvatarModule,
+    CaptchaModule,
+    MessagesModule,
+    MessageModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

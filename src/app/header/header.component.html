@@ -3,12 +3,12 @@
     <img src="assets/logos/FinancialFutureLogo.svg" height="40" class="p-mr-2">
   </ng-template>
   <div *ngIf="!isLoggedIn">
-    <button pButton pRipple type="button" label="Log In" (click)="test()" class="p-button-text mr-3"></button>
-    <button pButton pRipple label="Sign Up"></button>
+    <button pButton pRipple type="button" label="Log In" [routerLink]="['/login']" (click)="test()" class="p-button-text mr-3"></button>
+    <button pButton pRipple routerLink="/register" label="Sign Up"></button>
   </div>
   <div *ngIf="isLoggedIn">
     <button pButton (click)="menu.toggle($event)" class="p-button-text no-label">
-        <p-avatar size="large" [label]="user.firstName.substring(0, 1)"></p-avatar>
+        <p-avatar size="large" [label]="user.firstName.substring(0, 1) + user.lastName.substring(0, 1)"></p-avatar>
     </button>
   </div>
 </p-menubar>
