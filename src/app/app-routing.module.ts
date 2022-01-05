@@ -6,6 +6,7 @@ import {RouterModule, Routes} from "@angular/router";
 import {RegisterComponent} from "./register/register.component";
 import {ForgotPasswordComponent} from "./forgot-password/forgot-password.component";
 import {PasswordResetComponent} from "./password-reset/password-reset.component";
+import {ConfirmAccountComponent} from "./confirm-account/confirm-account.component";
 
 const routes: Routes = [
   {path: '', component: HomeComponent, canActivate: [AuthGuard]},
@@ -13,6 +14,7 @@ const routes: Routes = [
   {path: 'register', component: RegisterComponent},
   {path: 'forgotpassword', component: ForgotPasswordComponent},
   {path: 'passwordreset', component: PasswordResetComponent},
+  {path: 'register/confirm', component: ConfirmAccountComponent},
 
   {path: '**', redirectTo: ''}
 

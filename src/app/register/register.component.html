@@ -1,1 +1,81 @@
-<p>register works!</p>
+<div *ngIf="!sent"
+  class="flex justify-content-center align-items-center lg:px-8 md:px-6 px-4 py-8 surface-ground">
+  <div class="surface-card p-4 shadow-2 border-round w-full lg:w-30rem md:w-30rem sm:w-30rem">
+    <div class="text-center mb-5">
+      <img src="assets/logos/FinancialFutureLogo.svg" alt="LOGO" height="50" class="mb-3">
+      <div class="text-900 text-3xl font-medium mb-3">Register</div>
+      <span class="text-600 font-medium line-height-3">Already have an account?</span>
+      <a class="font-medium no-underline ml-2 text-blue-500 cursor-pointer" routerLink="/login">Log
+        In!</a>
+    </div>
+
+    <form [formGroup]="loginForm" #form="ngForm"
+          (ngSubmit)="onSubmitPassword()">
+      <div>
+        <label for="username" class="block text-900 font-medium mb-2">Email</label>
+        <small
+          *ngIf="form.submitted && loginForm.hasError('required', 'username')"
+          id="username-notification" class="p-error">Email is required</small>
+        <small
+          *ngIf="form.submitted && loginForm.hasError('pattern', 'username')"
+          id="username-pattern" class="p-error">Email is invalid</small>
+        <input id="username" type="text" pInputText class="w-full mb-3" formControlName="username"
+               [ngClass]="{ 'ng-invalid ng-dirty': submitted && f['username'].errors}">
+
+        <label for="firstName" class="block text-900 font-medium mb-2">First Name</label>
+        <small
+          *ngIf="form.submitted && loginForm.hasError('required', 'firstName')"
+          id="firstname-notification" class="p-error">First name is required</small>
+        <input id="firstName" type="text" pInputText class="w-full mb-3" formControlName="firstName"
+               [ngClass]="{ 'ng-invalid ng-dirty': submitted && f['firstName'].errors}">
+
+        <label for="lastName" class="block text-900 font-medium mb-2">Last Name</label>
+        <small
+          *ngIf="form.submitted && loginForm.hasError('required', 'lastName')"
+          id="lastName-notification" class="p-error">Last name is required</small>
+        <input id="lastName" type="text" pInputText class="w-full mb-3" formControlName="lastName"
+               [ngClass]="{ 'ng-invalid ng-dirty': submitted && f['lastName'].errors}">
+
+        <label for="password" class="block text-900 font-medium mb-2">Password</label>
+        <small
+          *ngIf="form.submitted && loginForm.hasError('required', 'password')"
+          id="password-notification" class="p-error">Password is required</small>
+        <small
+          *ngIf="form.submitted && !loginForm.hasError('required', 'password') && loginForm.hasError('minlength', 'password')"
+          id="password-length-notification" class="p-error">Password must be at least 6 characters</small>
+        <input id="password" type="password" pInputText class="w-full mb-3"
+               formControlName="password"
+               [ngClass]="{ 'ng-invalid ng-dirty': submitted && f['password'].errors }">
+
+        <label for="password" class="block text-900 font-medium mb-2">Confirm Password</label>
+        <small
+          *ngIf="form.submitted && loginForm.hasError('required', 'confirmPassword')"
+          id="confirm-password-notification" class="p-error">Confirm password is required</small>
+        <small
+          *ngIf="form.submitted
+            && !loginForm.hasError('required', 'confirmPassword')
+            && !loginForm.hasError('required', 'password')
+            && loginForm.hasError('mismatch')"
+          id="matching-notification" class="p-error">Passwords do not match</small>
+        <input id="confirmPassword" type="password" pInputText class="w-full mb-4 form-control"
+               formControlName="confirmPassword"
+               [ngClass]="{ 'ng-invalid ng-dirty': submitted && f['confirmPassword'].errors }">
+
+        <div class="flex align-items-center justify-content-between mb-3">
+          <button pButton pRipple label="Register" icon="pi pi-user" class="w-full"></button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div *ngIf="sent"
+     class="flex justify-content-center align-items-center lg:px-8 md:px-6 px-4 py-8 surface-ground">
+  <div class="surface-card p-4 shadow-2 border-round w-full lg:w-30rem md:w-30rem sm:w-30rem">
+    <div class="text-center mb-5">
+      <img src="assets/logos/FinancialFutureLogo.svg" alt="LOGO" height="50" class="mb-3">
+      <div class="text-900 text-3xl font-medium mb-3">Verify Email</div>
+      <span class="text-600 font-medium line-height-3">An email has been sent with a link to verify your account</span>
+    </div>
+  </div>
+</div>
+<p-toast></p-toast>

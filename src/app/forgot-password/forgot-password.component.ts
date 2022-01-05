@@ -5,8 +5,6 @@ import {AppComponent} from "../app.component";
 import {HttpClient} from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AuthenticationService, UserService} from "../_services";
-import {MustMatch} from "../_helpers";
-import {$e} from "@angular/compiler/src/chars";
 
 @Component({
   selector: 'app-forgot-password',
@@ -47,7 +45,6 @@ export class ForgotPasswordComponent implements OnInit {
     this.error = null;
     this.success = null;
 
-    // stop here if form is invalid
     if (this.forgotPasswordForm.invalid) {
       return;
     }
@@ -76,7 +73,6 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   showResponse($event: any) {
-    console.log($event);
     this.authService.reCaptchaValidation($event.response).subscribe((response: Response) => {
         // @ts-ignore
         if (response.status === 200 && response.body && response.body.success) {
@@ -88,11 +84,6 @@ export class ForgotPasswordComponent implements OnInit {
         }
         this.app.loadingRemove();
 
-      },
-      (error: any) => {
-        this.error = error;
-        this.show();
-        this.app.loadingRemove();
-      });
+      })
   }
 }

@@ -178,10 +178,6 @@ export class HeaderComponent implements OnInit {
     window.location.reload();
   }
 
-  test() {
-    console.log(this.router.url)
-  }
-
   private toggleViewMode() {
     if (this.viewMode === "bootstrap4-dark-blue"){
       this.viewMode = "bootstrap4-light-blue";

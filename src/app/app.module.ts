@@ -27,6 +27,8 @@ import { PasswordResetComponent } from './password-reset/password-reset.componen
 import {CaptchaModule} from "primeng/captcha";
 import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
+import {ToastModule} from "primeng/toast";
+import { ConfirmAccountComponent } from './confirm-account/confirm-account.component';
 
 
 @NgModule({
@@ -38,7 +40,8 @@ import {MessageModule} from 'primeng/message';
     HeaderComponent,
     FooterComponent,
     ForgotPasswordComponent,
-    PasswordResetComponent
+    PasswordResetComponent,
+    ConfirmAccountComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'serverApp'}),
@@ -59,7 +62,8 @@ import {MessageModule} from 'primeng/message';
     AvatarModule,
     CaptchaModule,
     MessagesModule,
-    MessageModule
+    MessageModule,
+    ToastModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

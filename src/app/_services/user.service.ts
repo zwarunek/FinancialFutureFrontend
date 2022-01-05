@@ -15,11 +15,13 @@ export class UserService {
   }
 
 
-  register(user: any) {
-    return this.http.post<any>(`http://localhost:4200/api/register`, user).pipe(map(response => {
-      // store user details and jwt token in local storage to keep user logged in between page refreshes
-      return response;
-    }));
+  register(user: any): any {
+    // @ts-ignore
+    return this.http.post(`http://localhost:4200/api/registration`, user, httpOptions);
+  }
+  confirmAccount(token: any): any {
+    // @ts-ignore
+    return this.http.get(`http://localhost:4200/api/registration/confirm?token=` + token, httpOptions);
   }
 
   changeAccountDetails(user: any, id: string) {
@@ -35,6 +37,11 @@ export class UserService {
     return this.http.post(`http://localhost:4200/api/passwordreset`, {username}, httpOptions);
   }
 
+  sendConfirmationTokenToEmail(username: string): any {
+    // @ts-ignore
+    return this.http.post(`http://localhost:4200/api/registration/sendmail`, {username}, httpOptions);
+  }
+
   resetPassword(password: string, token: string): any {
     // @ts-ignore
     return this.http.post(`http://localhost:4200/api/passwordreset/reset?token=` + token, {password}, httpOptions);
@@ -43,5 +50,10 @@ export class UserService {
   getAccountDetailsFromPasswordResetToken(token: string): any {
     // @ts-ignore
     return this.http.get(`http://localhost:4200/api/passwordreset?token=` + token, httpOptions);
+  }
+
+  getAccountDetailsFromConfirmationToken(token: string): any {
+    // @ts-ignore
+    return this.http.get(`http://localhost:4200/api/registration?token=` + token, httpOptions);
   }
 }
