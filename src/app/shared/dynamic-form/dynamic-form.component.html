@@ -1,0 +1,33 @@
+<div
+  class="flex justify-content-center align-items-center lg:px-8 md:px-6 px-4 py-8 surface-ground">
+  <div class="surface-card p-4 shadow-2 border-round w-full lg:w-30rem md:w-30rem sm:w-30rem">
+    <div class="text-center mb-5">
+      <img *ngIf="image" src="{{image}}" alt="Form Image" height="50" class="mb-3">
+      <div class="text-900 text-3xl font-medium mb-3" *ngIf="header || headerTemplate">
+        {{header}}
+        <ng-content select="p-header"></ng-content>
+        <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+      </div>
+      <div *ngIf="subtitle || subtitleTemplate">
+        <span class="text-600 font-medium line-height-3">{{subtitle}}</span>
+        <ng-content select="p-subtitle"></ng-content>
+        <ng-container *ngTemplateOutlet="subtitleTemplate"></ng-container>
+      </div>
+    </div>
+    <form *ngIf="questions" [formGroup]="form">
+      <div *ngFor="let question of questions" class="form-row">
+        <app-question [question]="question" (onSubmitFunction)="onSubmit()" [submitted]="submitted" [form]="form"></app-question>
+      </div>
+    </form>
+    <div *ngIf="aboveSubmit || aboveSubmitTemplate">
+      <ng-content select="p-above-submit"></ng-content>
+      <ng-container *ngTemplateOutlet="aboveSubmitTemplate"></ng-container>
+    </div>
+
+    <button *ngIf="this.submitButtonText !== undefined && this.submitButtonText !== ''" pButton pRipple [disabled]="form.invalid || !captcha" [label]="submitButtonText" (click)="onSubmit()" class="w-full"></button>
+    <div class="text-600 font-medium line-height-3">
+      <ng-content></ng-content>
+      <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+    </div>
+  </div>
+</div>

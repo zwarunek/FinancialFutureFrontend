@@ -1,0 +1,27 @@
+<div [formGroup]="form">
+  <div>
+    <label class="block text-900 font-medium mb-2" [for]="question.key">{{question.label}}</label>
+
+    <small
+      *ngIf="submitted && form.hasError('required', question.key)"
+      id="{{question.key}}-required-notification" class="p-error">{{question.label}} is required</small>
+    <small
+      *ngIf="submitted && form.hasError('pattern', question.key)"
+      id="{{question.key}}-pattern-notification" class="p-error">{{question.label}} is invalid</small>
+    <small
+      *ngIf="submitted && form.hasError('minlength', question.key)"
+      id="{{question.key}}-minlength-notification" class="p-error">{{question.label}} must have at least {{getMinLength(question.key)}} characters</small>
+    <small
+      *ngIf="question.key === 'confirmPassword' && submitted
+       && !form.hasError('required', 'confirmPassword')
+       && !form.hasError('required', 'password')
+       && form.hasError('mismatch')"
+      id="confirmPassword-notification" class="p-error">Passwords do not match</small>
+    <div [ngSwitch]="question.controlType">
+      <input pInputText class="w-full mb-3 form-control" (keydown.enter)="submit()" *ngSwitchCase="'textbox'" [formControlName]="question.key"
+             [id]="question.key" [ngClass]="{ 'ng-invalid ng-dirty': submitted && form.controls[question.key].errors}">
+      <input pInputText type="password" class="w-full mb-3 form-control" (keydown.enter)="submit()" *ngSwitchCase="'password'" [formControlName]="question.key"
+                  [id]="question.key" [ngClass]="{ 'ng-invalid ng-dirty': submitted && form.controls[question.key].errors}">
+    </div>
+  </div>
+</div>
