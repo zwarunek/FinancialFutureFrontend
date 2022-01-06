@@ -4,7 +4,7 @@ import {LoginComponent} from "@features/login-register/login/login.component";
 import {RegisterComponent} from "@features/login-register/register/register.component";
 import {MessagesModule} from "primeng/messages";
 import {RouterModule} from "@angular/router";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {InputTextModule} from "primeng/inputtext";
 import {CheckboxModule} from "primeng/checkbox";
 import {ButtonModule} from "primeng/button";
@@ -20,6 +20,8 @@ import {
   PasswordResetComponent
 } from "@features/login-register/password-reset/password-reset.component";
 import {CaptchaModule} from "primeng/captcha";
+import {DynamicFormModule} from "@shared/dynamic-form/dynamic-form.module";
+import {CardModule} from "primeng/card";
 
 
 
@@ -48,7 +50,10 @@ import {CaptchaModule} from "primeng/captcha";
     ButtonModule,
     RippleModule,
     ToastModule,
-    CaptchaModule
+    CaptchaModule,
+    DynamicFormModule,
+    CardModule,
+    FormsModule
   ]
 })
 export class LoginRegisterModule { }

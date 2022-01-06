@@ -1,42 +1,22 @@
-<div
-  class="flex justify-content-center align-items-center lg:px-8 md:px-6 px-4 py-8 surface-ground">
-  <div class="surface-card p-4 shadow-2 border-round w-full lg:w-30rem md:w-30rem sm:w-30rem">
-    <div class="text-center mb-5">
-      <img src="../../../../assets/logos/FinancialFutureLogo.svg" alt="LOGO" height="50" class="mb-3">
-      <div class="text-900 text-3xl font-medium mb-3">Log In</div>
-      <span class="text-600 font-medium line-height-3">Don't have an account?</span>
-      <a class="font-medium no-underline ml-2 text-blue-500 cursor-pointer" routerLink="/register">Sign Up today!</a>
-    </div>
-    <p-messages></p-messages>
-    <form [formGroup]="loginForm" #form="ngForm"
-          (ngSubmit)="onSubmitPassword()">
-      <div>
-        <label for="email" class="block text-900 font-medium mb-2">Email</label>
-        <small
-          *ngIf="form.submitted && f['email'].invalid && f['email'].errors && f['email'].errors['required']"
-          id="email-notification" class="p-error">Email is required</small>
-        <input id="email" type="text" pInputText class="w-full mb-3" formControlName="email"
-               [ngClass]="{ 'ng-invalid ng-dirty': submitted && f['email'].errors }">
+<app-dynamic-form [questions]="questions | async" (onSubmitFunction)="onSubmit($event)"
+                   header="Log In"
+                  image="../../../../assets/logos/FinancialFutureLogo.svg"
+                  submitButtonText="Log In">
+  <ng-template pTemplate="subtitle">
+    <span class="text-600 font-medium line-height-3">Don't have an account?</span>
+    <a class="font-medium no-underline ml-2 text-blue-500 cursor-pointer" routerLink="/register">Sign Up Today!</a>
+    <p-messages [(value)]="msgs" [enableService]="false"></p-messages>
+  </ng-template>
 
-        <label for="password" class="block text-900 font-medium mb-2">Password</label>
-        <small
-          *ngIf="form.submitted && f['password'].invalid && f['password'].errors && f['password'].errors['required']"
-          id="password-notification" class="p-error">Password is required</small>
-        <input id="password" type="password" pInputText class="w-full mb-3 form-control"
-               formControlName="password"
-               [ngClass]="{ 'ng-invalid ng-dirty': submitted && f['password'].errors }">
-
-        <div class="flex align-items-center justify-content-between mb-6">
-          <div class="flex align-items-center">
-            <p-checkbox id="rememberMe" [binary]="true" formControlName="rememberMe" styleClass="mr-2"></p-checkbox>
-            <label for="rememberMe">Remember me</label>
-          </div>
-          <a class="font-medium no-underline ml-2 text-blue-500 text-right cursor-pointer" routerLink="/forgotpassword">Forgot
-            password?</a>
-        </div>
-
-        <button pButton pRipple label="Sign In" icon="pi pi-user" class="w-full"></button>
+  <ng-template pTemplate="aboveSubmit">
+    <div class="flex align-items-center justify-content-between mb-6">
+      <div class="flex align-items-center">
+        <p-checkbox id="rememberMe" [binary]="true" styleClass="mr-2" [(ngModel)]="rememberMe"></p-checkbox>
+        <label for="rememberMe">Remember me</label>
       </div>
-    </form>
-  </div>
-</div>
+      <a class="font-medium no-underline ml-2 text-blue-500 text-right cursor-pointer" routerLink="/forgotpassword">Forgot
+        password?</a>
+    </div>
+  </ng-template>
+</app-dynamic-form>
+

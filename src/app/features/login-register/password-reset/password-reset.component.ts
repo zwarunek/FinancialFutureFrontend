@@ -3,9 +3,12 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {AppComponent} from "@app/app.component";
 import {HttpClient} from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
-import {MessageService} from "primeng/api";
+import {Message, MessageService} from "primeng/api";
 import {UserService} from "@core/services/user.service";
 import {AuthenticationService} from "@core/services/authentication.service";
+import {Observable, of} from "rxjs";
+import {QuestionBase} from "@shared/dynamic-form/dynamic-form-question/question-base";
+import {passworrdQuestion} from "@shared/dynamic-form/dynamic-form-question/question-password";
 
 @Component({
   selector: 'app-password-reset',
@@ -26,9 +29,11 @@ export class PasswordResetComponent implements OnInit {
   sent: boolean = false;
   showError: boolean = false;
   captchaVerified: any;
+  questions: Observable<QuestionBase<any>[]>;
+  msgs: Message[] = [];
 
   constructor(private userService: UserService, private app: AppComponent, private http: HttpClient, private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router, private authService: AuthenticationService, private messageService: MessageService) {
-
+    this.questions = this.getQuestions();
     if (this.authService.getToken()) {
       this.router.navigate(['/']);
     }
@@ -39,10 +44,6 @@ export class PasswordResetComponent implements OnInit {
       confirmPassword: new FormControl('', Validators.required)
       // @ts-ignore
     }, this.passwordsShouldMatch);
-  }
-
-  get f() {
-    return this.resetPasswordForm.controls;
   }
 
   passwordsShouldMatch(fGroup: FormGroup) {
@@ -69,17 +70,12 @@ export class PasswordResetComponent implements OnInit {
             }
           } else {
             this.showError = true;
-            this.error = response.body;
-            this.show();
           }
           this.app.loadingRemove();
 
         },
         (error: any) => {
-          console.log(error);
           this.showError = true;
-          this.error = error;
-          this.show();
           this.app.loadingRemove();
         });
     } else {
@@ -87,23 +83,21 @@ export class PasswordResetComponent implements OnInit {
     }
   }
 
-  onSubmitPassword() {
+  onSubmit(form: FormGroup) {
+    this.msgs = []
     this.submitted = true;
-
     this.error = null;
     this.success = null;
 
-    // stop here if form is invalid
-    if (this.resetPasswordForm.invalid) {
+    if (form.invalid) {
       return;
     }
     this.app.loadingAdd();
     if (this.token == null) {
       this.showError = true
     } else {
-      this.userService.resetPassword(this.f['password'].value, this.token)
+      this.userService.resetPassword(form.value.password, this.token)
       .subscribe((data: any) => {
-          console.log(data);
           if (data.status === 200 && data.body.data) {
             if (data.body.data === 'Invalid Token') {
               this.showError = true;
@@ -115,22 +109,16 @@ export class PasswordResetComponent implements OnInit {
               this.expired = true;
             }
           } else {
-            this.error = data.status.toString();
-            this.show();
+            this.showError = true;
           }
           this.app.loadingRemove();
 
         },
         (error: any) => {
-          this.error = error;
-          this.show();
+          this.showError = true;
           this.app.loadingRemove();
         });
     }
-  }
-
-  show() {
-    this.messageService.add({severity: 'error', detail: this.error});
   }
 
   showResponse($event: any) {
@@ -140,8 +128,7 @@ export class PasswordResetComponent implements OnInit {
         this.captchaVerified = true;
       } else {
         this.captchaVerified = false;
-        this.error = "An error occurred validating reCaptcha";
-        this.show();
+        this.msgs = [{severity: 'error', summary: 'An error occurred validating reCaptcha'}];
       }
       this.app.loadingRemove();
 
@@ -155,16 +142,34 @@ export class PasswordResetComponent implements OnInit {
         if (data.status === 200) {
           this.sent = true;
         } else {
-          this.error = data.status.toString();
-          this.show();
+          this.showError = true;
         }
         this.app.loadingRemove();
 
       },
       (error: any) => {
-        this.error = error;
-        this.show();
+        this.showError = true;
         this.app.loadingRemove();
       });
+  }
+  getQuestions() {
+
+    const questions: QuestionBase<string>[] = [
+      new passworrdQuestion({
+        key: 'password',
+        label: 'Password',
+        validators: [Validators.required, Validators.minLength(6)],
+        order: 1
+      }),
+
+      new passworrdQuestion({
+        key: 'confirmPassword',
+        label: 'Confirm Password',
+        validators: Validators.required,
+        order: 2
+      })
+    ];
+
+    return of(questions.sort((a, b) => a.order - b.order));
   }
 }

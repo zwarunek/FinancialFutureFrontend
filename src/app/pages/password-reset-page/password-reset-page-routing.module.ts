@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {
-  ForgotPasswordPageComponent
-} from "@app/pages/forgot-password-page/forgot-password-page.component";
+  PasswordResetPageComponent
+} from "@app/pages/password-reset-page/password-reset-page.component";
 
-const routes: Routes = [{path: '', component: ForgotPasswordPageComponent}];
+const routes: Routes = [{path: '', component: PasswordResetPageComponent}];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
