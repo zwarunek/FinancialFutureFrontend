@@ -29,16 +29,18 @@ const routes: Routes = [
   // },
   // {path: '**', redirectTo: ''},
   {
-    path: 'comingsoon',
+    path: '',
     loadChildren: () => import('./pages/under-construction-page/under-construction-page.module').then((m) => m.UnderConstructionPageModule),
   },
-  {path: '**', redirectTo: 'comingsoon'}
+  {path: '**', redirectTo: ''}
 
 ];
 
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {
+    initialNavigation: 'enabledBlocking'
+})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

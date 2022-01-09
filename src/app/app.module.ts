@@ -15,7 +15,8 @@ import {LoginRegisterModule} from "@features/login-register/login-register.modul
   declarations: [
     AppComponent
   ],
-  imports: [BrowserModule,
+  imports: [
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     ProgressSpinnerModule,
     HttpClientModule,
