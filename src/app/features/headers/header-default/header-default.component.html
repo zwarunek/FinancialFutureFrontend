@@ -1,6 +1,8 @@
 <p-menubar [model]="items">
   <ng-template pTemplate="start">
-    <img src="../../../../assets/logos/FinancialFutureLogo.svg" height="40" class="p-mr-2">
+    <a routerLink="/">
+      <img src="../../../../assets/logos/FinancialFutureLogo.svg" height="40" class="p-mr-2">
+    </a>
   </ng-template>
   <div>
     <button pButton (click)="menu.toggle($event)" class="p-button-text no-label">
