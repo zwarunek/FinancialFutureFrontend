@@ -62,8 +62,9 @@ export class RegisterComponent {
     delete form.value.confirmPassword;
     this.userService.register(form.value)
     .subscribe((data: any) => {
+      console.log(data)
         if (data.status === 200) {
-          if(data.data == 'Successful')
+          if(data.body.data == 'Successful')
             this.sent = true;
           else
             this.msgs = [{severity: 'error', summary: 'An account already exists with that email'}];

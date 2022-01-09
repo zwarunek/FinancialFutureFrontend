@@ -1,0 +1,59 @@
+<div
+  class="surface-card p-3 shadow-2 w-full h-full flex justify-content-start align-items-center flex-column"
+  style="border-radius: 1.5rem">
+  Company Selection
+  <div *ngIf="!selectedCompany" class="flex justify-content-center ph-3 w-full flex-column relative">
+    <div class="block w-full flex-row flex">
+        <span class="p-input-icon-left w-full">
+          <i class="pi pi-search"></i>
+          <input type="text" class=" w-full"
+                 style="border-radius: 1.5rem 0 0 1.5rem"
+                 [(ngModel)]="searchText" pInputText
+                 (input)="inputChanged()">
+        </span>
+      <button pButton class="p-button-secondary p-button-outlined" [disabled]="searchText === ''"
+              icon="pi pi-times"
+              style="border-radius: 0 1.5rem 1.5rem 0"
+              (click)="searchText = ''; this.companies = []"></button>
+    </div>
+    <div class="block w-full shadow-2 border-round absolute" style="top: 35px; background-color: var(--surface-d)">
+      <div *ngFor="let company of companies" class="block h-3rem flex justify-content-between p-2"
+           (click)="selectedCompany = company;searchText = ''; this.companies = []"
+           style="border-bottom: var(--surface-b) solid 1px; cursor: pointer">
+        <div class="flex flex-row">
+          <div class="flex justify-content-center align-items-center w-2rem pr-2">
+            <img
+              style="max-width: 2rem; max-height: 2rem; width: auto; height: auto; display: block; border-radius: 4px"
+              [src]="company.logo + '?size=28'" [default]="'assets/logos/FinancialFutureLogo.svg'"
+              [alt]="company.name">
+          </div>
+          <div class="flex justify-content-center align-items-center">
+            <span class="text-900 text-lg font-medium">{{company.name}}</span>
+          </div>
+        </div>
+        <div class="flex align-items-center" style="white-space: nowrap; overflow: hidden;">
+            <span class="text-600 text-base font-medium w-full"
+                  style="text-overflow: ellipsis; overflow: hidden;">{{company.domain}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="selectedCompany" class="w-full h-full relative flex align-items-center flex-column">
+    <button pButton class="p-button-rounded p-button-text p-button-plain absolute top-0 right-0"
+            icon="pi pi-times"
+            (click)="selectedCompany = undefined;" style="position: absolute"></button>
+    <div class="flex justify-content-center align-items-center w-18rem h-18rem">
+      <img class=""
+           style="max-width: 14rem; max-height: 14rem; width: auto; height: auto; display: block; border-radius: 4px"
+           [src]="selectedCompany.logo + '?size=180'"
+           [default]="'assets/logos/FinancialFutureLogo.svg'"
+           [alt]="selectedCompany.name">
+    </div>
+    <div class="flex justify-content-center align-items-center">
+      <span class="text-900 text-3xl font-medium">{{selectedCompany.name}}</span>
+    </div>
+    <div class="flex justify-content-center align-items-center">
+      <span class="text-600 text-lg font-medium">{{selectedCompany.domain}}</span>
+    </div>
+  </div>
+</div>

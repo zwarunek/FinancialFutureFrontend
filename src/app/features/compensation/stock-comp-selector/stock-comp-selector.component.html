@@ -1,0 +1,30 @@
+<div class="h-full flex flex-column p-2"
+     style="border-radius: 1.5rem; border: var(--surface-d) solid 1px">
+  <div class="flex flex-row h-full mb-3">
+    <div class="flex flex-column h-full w-full " *ngFor="let year of years; let i = index">
+      <div class="flex justify-content-center align-items-center">
+        <span class="text-600 text-lg font-medium">Year {{i + 1}}</span>
+      </div>
+      <div class="w-full h-full relative flex align-items-center justify-content-center">
+        <div class="w-full absolute flex align-items-center justify-content-center"
+             style="border-radius: 10px;"
+             [ngStyle]="{'height': year.percent + '%',
+                       'top': (100-year.range[1]) + '%',
+                       'background-color': 'rgba(0, 160, 0, ' + ((year.range[1])*.8+20)/100 + ')'}">
+          <span style="opacity: 100%">{{year.percent | number: '1.0-2'}}%</span>
+
+        </div>
+        <p-slider id="slider-{{i}}" #slider
+                  class="w-full h-full relative flex align-items-center justify-content-center"
+                  [ngStyle]="{'top': '-3px'}"
+                  [(ngModel)]="year.range"
+                  [range]="true" [step]="1"  (onChange)="rebalance(i, year.range, slider)"
+                  orientation="vertical"></p-slider>
+      </div>
+    </div>
+  </div>
+  <div class="flex flex-row h-2rem justify-content-center">
+    <button pButton label="- Remove Year" (click)="removeYear()"></button>
+    <button pButton label="+ Add Year" (click)="addYear()"></button>
+  </div>
+</div>
