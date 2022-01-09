@@ -4,21 +4,22 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
 import {AppComponent} from './app.component';
 import {AppRoutingModule} from './app-routing.module';
-import {JwtInterceptor} from "@core/interceptors/jwt.interceptor";
 import {ErrorInterceptor} from "@core/interceptors/error.interceptor";
 import {ProgressSpinnerModule} from "primeng/progressspinner";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {HeadersModule} from "@features/headers/headers.module";
+import {LoginRegisterModule} from "@features/login-register/login-register.module";
 
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [BrowserModule,
     AppRoutingModule,
     ProgressSpinnerModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule, HeadersModule, LoginRegisterModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
