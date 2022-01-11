@@ -1,11 +1,50 @@
 <div
-  class="surface-card p-3 shadow-2 w-full h-full flex justify-content-start align-items-center flex-column"
-  style="border-radius: 1.5rem">STOCK COMP SELECTOR
-  <div class="grid h-full w-full">
-    <div class="col-8">
+  class="surface-card p-3 shadow-2 w-full h-full flex justify-content-start align-items-center flex-column text-600 font-medium"
+  style="border-radius: 1.5rem">
+  <div class="flex h-full w-full">
+    <div style="min-width: 250px">
+      <app-company-search></app-company-search>
     </div>
-    <div class="col-4">
+    <div class="w-full h-full p-2 flex flex flex-column"
+         style="border-radius: 1.5rem; border: var(--surface-d) solid 1px">
+      <div class="flex w-full mb-3 justify-content-center align-items-center">
+        <div class="text-600 font-medium line-height-3 flex">
+          <span>Compensation Package</span>
+        </div>
+      </div>
+      <div class="fw-full h-full flex flex-row">
+        <div class="flex flex-column w-full h-full align-items-center">
+
+          <span class="p-float-label mb-5 w-full">
+              <input id="level-name-input" class="w-full" type="text" pInputText [(ngModel)]="levelName">
+              <label for="level-name-input">Level Name</label>
+          </span>
+          <span class="p-float-label mb-5 w-full">
+            <p-inputNumber id="salary-input" class="w-full flex flex-column" [min]="0" [(ngModel)]="baseSalary" (onKeyDown)="addYearBonus($event)" inputId="locale-us" prefix="$" locale="en-US">
+            </p-inputNumber>
+              <label for="salary-input">Base Salary</label>
+          </span>
+          <span class="p-float-label mb-5 w-full">
+            <p-inputNumber value="" id="bonus-input" class="w-full flex flex-column" [min]="0" [(ngModel)]="enteredBonus" (onKeyDown)="addYearBonus($event)" inputId="locale-us" prefix="$" locale="en-US">
+            </p-inputNumber>
+            <label for="bonus-input">Year Bonuses</label>
+          </span>
+          <div class="p-d-flex p-ai-center">
+            <p-chip label="Year {{this.yearBonuses.length}}" [removable]="true"></p-chip>
+          </div>
+        </div>
+        <div class="flex flex-column w-full h-full">
+        </div>
+        <div class="flex flex-column w-full h-full">
+
+        </div>
+      </div>
+    </div>
+    <div class="relative">
       <app-stock-comp-selector></app-stock-comp-selector>
+      <button pButton class="p-button-rounded p-button-text p-button-plain absolute top-0 right-0"
+              icon="pi pi-times"
+              (click)="hasStockCompensation = false;" style="position: absolute"></button>
     </div>
   </div>
 </div>

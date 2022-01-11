@@ -7,9 +7,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CompensationInputComponent implements OnInit {
 
-  constructor() { }
+  levelName: string = '';
+  baseSalary!: number;
+  yearBonuses: any[] = [];
+  enteredBonus: any = null;
+  hasStockCompensation: boolean = false;
+
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
 
+  addYearBonus($event: any) {
+    console.log(this.baseSalary)
+    if($event.key === 'Enter' || $event.key === ',') {
+      this.yearBonuses.push({year: this.yearBonuses.length + 1, bonus: this.enteredBonus})
+      // @ts-ignore
+      this.baseSalary = undefined
+    }
+
+  }
 }

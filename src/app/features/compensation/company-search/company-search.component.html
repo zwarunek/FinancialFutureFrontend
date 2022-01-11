@@ -1,7 +1,11 @@
 <div
-  class="surface-card p-3 shadow-2 w-full h-full flex justify-content-start align-items-center flex-column"
-  style="border-radius: 1.5rem">
-  Company Selection
+  class="h-full flex flex-column p-2"
+  style="border-radius: 1.5rem; border: var(--surface-d) solid 1px">
+  <div class="flex w-full mb-3 justify-content-center align-items-center">
+    <div class="text-600 font-medium line-height-3 flex">
+      <span>Company Selection</span>
+    </div>
+  </div>
   <div *ngIf="!selectedCompany" class="flex justify-content-center ph-3 w-full flex-column relative">
     <div class="block w-full flex-row flex">
         <span class="p-input-icon-left w-full">
@@ -39,9 +43,6 @@
     </div>
   </div>
   <div *ngIf="selectedCompany" class="w-full h-full relative flex align-items-center flex-column">
-    <button pButton class="p-button-rounded p-button-text p-button-plain absolute top-0 right-0"
-            icon="pi pi-times"
-            (click)="selectedCompany = undefined;" style="position: absolute"></button>
     <div class="flex justify-content-center align-items-center w-18rem h-18rem">
       <img class=""
            style="max-width: 14rem; max-height: 14rem; width: auto; height: auto; display: block; border-radius: 4px"
@@ -55,5 +56,9 @@
     <div class="flex justify-content-center align-items-center">
       <span class="text-600 text-lg font-medium">{{selectedCompany.domain}}</span>
     </div>
+
+    <button pButton style="margin-top: 4rem" class="p-button-text p-button-plain"
+            label="Remove Company"
+            (click)="selectedCompany = undefined;"></button>
   </div>
 </div>

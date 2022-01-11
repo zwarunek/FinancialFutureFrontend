@@ -9,10 +9,17 @@ import {FormsModule} from "@angular/forms";
 import {ButtonModule} from "primeng/button";
 import {CoreModule} from "@core/core.module";
 import { CompensationComponent } from './compensation.component';
-import { StockCompSelectorComponent } from './stock-comp-selector/stock-comp-selector.component';
+import { StockCompSelectorComponent } from './compensation-input/stock-comp-selector/stock-comp-selector.component';
 import { ExistingLevelsComponent } from './existing-levels/existing-levels.component';
 import { CompensationInputComponent } from './compensation-input/compensation-input.component';
 import {SliderModule} from "primeng/slider";
+import {TagModule} from "primeng/tag";
+import {DropdownModule} from "primeng/dropdown";
+import {TooltipModule} from "primeng/tooltip";
+import {InputNumberModule} from "primeng/inputnumber";
+import {TableModule} from "primeng/table";
+import {ChipsModule} from "primeng/chips";
+import {ChipModule} from "primeng/chip";
 
 
 
@@ -37,7 +44,14 @@ import {SliderModule} from "primeng/slider";
     FormsModule,
     ButtonModule,
     CoreModule,
-    SliderModule
+    SliderModule,
+    TagModule,
+    DropdownModule,
+    TooltipModule,
+    InputNumberModule,
+    TableModule,
+    ChipsModule,
+    ChipModule
   ]
 })
 export class CompensationModule { }
