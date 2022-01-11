@@ -63,26 +63,7 @@ export class StockCompSelectorComponent implements OnInit {
           range: [65, 85]
         }, {
           range: [85, 100]
-        }]},
-      // {company: 'Istanbul', schedule: [{
-      //     range: [0, 25]
-      //   }, {
-      //     range: [25, 50]
-      //   }, {
-      //     range: [50, 75]
-      //   }, {
-      //     range: [75, 100]
-      //   }]},
-      // {company: 'Paris', schedule: [{
-      //     range: [0, 25]
-      //   }, {
-      //     range: [25, 50]
-      //   }, {
-      //     range: [50, 75]
-      //   }, {
-      //     range: [75, 100]
-      //   }]
-      // }
+        }]}
     ]
   }
 
@@ -155,8 +136,7 @@ export class StockCompSelectorComponent implements OnInit {
 
   vestingScheduleChanged() {
     if(this.vestingScheduleSelected) {
-      console.log("here", this.vestingScheduleSelected)
-      this.years = this.vestingScheduleSelected
+      this.years = JSON.parse(JSON.stringify(this.vestingScheduleSelected))
     }
     else
       this.years = [{
@@ -173,5 +153,20 @@ export class StockCompSelectorComponent implements OnInit {
 
   compiledTimeChanged() {
 
+  }
+
+  clear($event: any) {
+    console.log($event, this.vestingScheduleSelected, this.vestingScheduleOptions)
+  }
+  public clone(obj: any): any {
+    let clonedObj: any = {}
+    for (let attribute in obj) {
+      if (typeof obj[attribute] === "object") {
+        clonedObj[attribute] = obj[attribute].clone();
+      } else {
+        clonedObj[attribute] = obj[attribute];
+      }
+    }
+    return clonedObj
   }
 }

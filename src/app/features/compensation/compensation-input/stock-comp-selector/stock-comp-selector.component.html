@@ -6,13 +6,21 @@
     </div>
   </div>
   <div class="flex w-full mb-3 flex-row align-items-center justify-content-between">
-    <p-inputNumber class="w-6" placeholder="Stock Comp" tooltipPosition="bottom" pTooltip="Total dollar amount awarded for entire period" [min]="0" [(ngModel)]="stockCompensation" inputId="locale-us" prefix="$" locale="en-US">
+    <p-inputNumber class="w-6" placeholder="Stock Comp" tooltipPosition="bottom"
+                   pTooltip="Total dollar amount awarded for entire period" [min]="0"
+                   [(ngModel)]="stockCompensation" inputId="locale-us" prefix="$" locale="en-US">
     </p-inputNumber>
-    <p-dropdown style="width: 44%" tooltipPosition="bottom" pTooltip="How often throughout the year your stock is granted" [options]="compiledTimeOptions" [(ngModel)]="compiledTimeSelected">
+    <p-dropdown style="width: 44%" tooltipPosition="bottom"
+                pTooltip="How often throughout the year your stock is granted"
+                [options]="compiledTimeOptions" [(ngModel)]="compiledTimeSelected">
     </p-dropdown>
   </div>
   <div class="flex w-full mb-3 align-items-center">
-    <p-dropdown class="w-full" tooltipPosition="top" pTooltip="Some companies either have back-loaded or front-loaded vesting schedules" [options]="vestingScheduleOptions" optionValue="schedule" [(ngModel)]="vestingScheduleSelected" (onChange)="vestingScheduleChanged()" placeholder="Company Specific Schedules" optionLabel="company" [showClear]="true">
+    <p-dropdown class="w-full" tooltipPosition="top"
+                pTooltip="Some companies either have back-loaded or front-loaded vesting schedules"
+                [options]="vestingScheduleOptions" optionValue="schedule" (onClear)="clear($event)"
+                [(ngModel)]="vestingScheduleSelected" (onChange)="vestingScheduleChanged()"
+                placeholder="Company Specific Schedules" optionLabel="company" [showClear]="true">
     </p-dropdown>
   </div>
   <div class="flex flex-row h-full mb-3">

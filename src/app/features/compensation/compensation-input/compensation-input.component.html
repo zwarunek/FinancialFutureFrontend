@@ -13,30 +13,50 @@
         </div>
       </div>
       <div class="fw-full h-full flex flex-row">
-        <div class="flex flex-column w-full h-full align-items-center">
+        <div class="flex flex-column w-full h-full align-items-center pr-2">
 
           <span class="p-float-label mb-5 w-full">
-              <input id="level-name-input" class="w-full" type="text" pInputText [(ngModel)]="levelName">
-              <label for="level-name-input">Level Name</label>
+              <input id="level-name-input" class="w-full" type="text" pInputText
+                     [(ngModel)]="title">
+              <label for="level-name-input">Title</label>
           </span>
           <span class="p-float-label mb-5 w-full">
-            <p-inputNumber id="salary-input" class="w-full flex flex-column" [min]="0" [(ngModel)]="baseSalary" (onKeyDown)="addYearBonus($event)" inputId="locale-us" prefix="$" locale="en-US">
+            <p-inputNumber id="salary-input" class="w-full flex flex-column" [min]="0"
+                           [(ngModel)]="baseSalary" inputId="locale-us" prefix="$" locale="en-US">
             </p-inputNumber>
               <label for="salary-input">Base Salary</label>
           </span>
           <span class="p-float-label mb-5 w-full">
-            <p-inputNumber value="" id="bonus-input" class="w-full flex flex-column" [min]="0" [(ngModel)]="enteredBonus" (onKeyDown)="addYearBonus($event)" inputId="locale-us" prefix="$" locale="en-US">
+            <p-inputNumber id="401k-match-input" class="w-full flex flex-column" [min]="0"
+                           [(ngModel)]="employerMatch" inputId="locale-us" suffix="%" locale="en-US">
+            </p-inputNumber>
+              <label for="401k-match-input">Employer 401k Match</label>
+          </span>
+          <span class="p-float-label mb-5 w-full">
+            <p-inputNumber id="401k-match-end-input" class="w-full flex flex-column" [min]="0"
+                           [(ngModel)]="employerMatchEnd" inputId="locale-us" suffix="%" locale="en-US">
+            </p-inputNumber>
+              <label for="401k-match-end-input">Employer 401k Match End</label>
+          </span>
+        </div>
+        <div class="flex flex-column w-full h-full pr-2">
+
+          <span class="p-float-label mb-2 w-full">
+            <p-inputNumber #bonusInput id="bonus-input" class="w-full flex flex-column" [min]="0"
+                           (onInput)="addYearBonus($event, bonusInput)"
+                           (onKeyDown)="keyDown($event, bonusInput)" inputId="locale-us" prefix="$"
+                           locale="en-US">
             </p-inputNumber>
             <label for="bonus-input">Year Bonuses</label>
           </span>
-          <div class="p-d-flex p-ai-center">
-            <p-chip label="Year {{this.yearBonuses.length}}" [removable]="true"></p-chip>
+          <div class="p-d-flex p-ai-center mb-5 w-full">
+            <p-chip (onRemove)="removeBonus(i)" *ngFor="let bonus of yearBonuses; let i = index"
+                    label="Year {{bonus.year}} - {{ bonus.bonus | currency : 'USD' : 'symbol' : '1.0-0' }} "
+                    [removable]="true"></p-chip>
           </div>
         </div>
         <div class="flex flex-column w-full h-full">
-        </div>
-        <div class="flex flex-column w-full h-full">
-
+          <p-button label="Add Compensation Level" (onClick)="addCompensation()"></p-button>
         </div>
       </div>
     </div>
