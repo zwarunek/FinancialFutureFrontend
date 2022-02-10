@@ -1,3 +1,25 @@
 <div
   class="surface-card p-3 shadow-2 w-full h-full flex justify-content-center align-items-start text-600 font-medium"
-  style="border-radius: 1.5rem">EXISTING LEVELS</div>
+  style="border-radius: 1.5rem">EXISTING LEVELS
+  <div class="flex h-full w-full">
+    <p-table [value]="levels" responsiveLayout="scroll" [scrollable]="true" scrollHeight="210px">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Company</th>
+          <th>First Year Total Comp</th>
+          <th>Base Salary</th>
+          <th>Quantity</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-level>
+        <tr>
+          <td>{{level.company | titlecase}}</td>
+          <td>{{level.title}}</td>
+          <td>${{level.salary}}</td>
+          <td>{{level.salary}}</td>
+          <td>{{level.quantity}}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

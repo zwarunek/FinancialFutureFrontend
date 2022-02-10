@@ -1,24 +1,37 @@
-import { Component, OnInit } from '@angular/core';
-import {InputNumber} from "primeng/inputnumber";
+import {Component, EventEmitter, OnInit, Output, ViewChild, ViewChildren} from '@angular/core';
+import {
+  CompanySearchComponent
+} from "@features/compensation/company-search/company-search.component";
+import {
+  StockCompSelectorComponent
+} from "@features/compensation/compensation-input/stock-comp-selector/stock-comp-selector.component";
+import {CompanySearchService} from "@features/compensation/company-search/company-search.service";
+import {CompensationService} from "@features/compensation/compensation.service";
 
+
+// const {parse, stringify} = require('flatted/cjs');
 @Component({
   selector: 'app-compensation-input',
   templateUrl: './compensation-input.component.html',
   styleUrls: ['./compensation-input.component.scss']
 })
 export class CompensationInputComponent implements OnInit {
-
   title: string = '';
   baseSalary!: number;
   yearBonuses: any[] = [];
   enteredBonus: any;
   hasStockCompensation: boolean = false;
   enterHit: boolean = false;
-  employerMatch: number = 0;
-  employerMatchEnd: number = 0;
+  employerMatch!: number;
+  employerMatchEnd!: number;
+  existingLevels: any[] = []
+  @Output() selectedCompany = new EventEmitter<string>();
+  @ViewChildren(CompanySearchComponent) companySearch: any;
+  @ViewChildren(StockCompSelectorComponent) stockCompSelector: any;
 
 
-  constructor() {
+
+  constructor(public companyService:CompensationService) {
   }
 
   ngOnInit(): void {
@@ -50,6 +63,20 @@ export class CompensationInputComponent implements OnInit {
   }
 
   addCompensation() {
-
+    console.log(this.stockCompSelector)
+    let tcDetails = {
+      'salary': this.baseSalary,
+      "company": this.companySearch.selectedCompany?.name,
+      "vestingSchedule": this.stockCompSelector.getVestingSchedule(),
+      "bonuses": this.yearBonuses,
+      "_401kMatch":this.employerMatch,
+      "_401kMatchEnds": this.employerMatchEnd,
+      "title":this.title
+    }
+    console.log(JSON.stringify(tcDetails, null, 4))
   }
+  onSelectCompany(company: string){
+    this.selectedCompany.emit(company)
+  }
+
 }

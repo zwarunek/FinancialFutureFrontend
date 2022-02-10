@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CompensationComponent implements OnInit {
 
+  selectedCompany: string = ''
+
   constructor() { }
 
   ngOnInit(): void {

@@ -3,7 +3,7 @@
   style="border-radius: 1.5rem">
   <div class="flex h-full w-full">
     <div style="min-width: 250px">
-      <app-company-search></app-company-search>
+      <app-company-search (onSelectCompany)="onSelectCompany($event)"></app-company-search>
     </div>
     <div class="w-full h-full p-2 flex flex flex-column"
          style="border-radius: 1.5rem; border: var(--surface-d) solid 1px">

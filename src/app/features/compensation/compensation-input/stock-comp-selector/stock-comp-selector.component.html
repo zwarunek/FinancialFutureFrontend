@@ -5,15 +5,21 @@
       <span>Stock Based Compensation</span>
     </div>
   </div>
-  <div class="flex w-full mb-3 flex-row align-items-center justify-content-between">
-    <p-inputNumber class="w-6" placeholder="Stock Comp" tooltipPosition="bottom"
+  <div class="flex w-full my-3 flex-row align-items-center justify-content-between">
+    <span class="p-float-label w-6">
+    <p-inputNumber class="w-full" tooltipPosition="bottom" id="stock-comp-input"
                    pTooltip="Total dollar amount awarded for entire period" [min]="0"
                    [(ngModel)]="stockCompensation" inputId="locale-us" prefix="$" locale="en-US">
     </p-inputNumber>
-    <p-dropdown style="width: 44%" tooltipPosition="bottom"
-                pTooltip="How often throughout the year your stock is granted"
-                [options]="compiledTimeOptions" [(ngModel)]="compiledTimeSelected">
-    </p-dropdown>
+      <label for="stock-comp-input">Stock Comp</label>
+    </span>
+    <span class="p-float-label" [ngStyle]="{'width': '44%'}">
+      <p-dropdown [ngStyle]="{'width': '44%'}" tooltipPosition="bottom" id="compiled-time-dropdown"
+                  pTooltip="How often throughout the year your stock is granted"
+                  [options]="compiledTimeOptions" [(ngModel)]="compiledTimeSelected">
+      </p-dropdown>
+      <label for="compiled-time-dropdown">Rate/Year</label>
+    </span>
   </div>
   <div class="flex w-full mb-3 align-items-center">
     <p-dropdown class="w-full" tooltipPosition="top"

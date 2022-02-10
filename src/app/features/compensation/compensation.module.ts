@@ -20,6 +20,7 @@ import {InputNumberModule} from "primeng/inputnumber";
 import {TableModule} from "primeng/table";
 import {ChipsModule} from "primeng/chips";
 import {ChipModule} from "primeng/chip";
+import {CompanySearchService} from "@features/compensation/company-search/company-search.service";
 
 
 
@@ -32,7 +33,6 @@ import {ChipModule} from "primeng/chip";
     CompensationInputComponent
   ],
   exports: [
-    CompanySearchComponent,
     CompensationComponent
   ],
   imports: [
@@ -52,6 +52,12 @@ import {ChipModule} from "primeng/chip";
     TableModule,
     ChipsModule,
     ChipModule
+  ],
+  providers: [
+    // CompanySearchComponent,
+    // StockCompSelectorComponent,
+    CompanySearchService,
+    ExistingLevelsComponent
   ]
 })
 export class CompensationModule { }

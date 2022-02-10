@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {CompensationService} from "@features/compensation/compensation.service";
 
 @Component({
   selector: 'app-existing-levels',
@@ -7,9 +8,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ExistingLevelsComponent implements OnInit {
 
-  constructor() { }
+
+  @Input() set company(value: string) {
+    this.selectedCompany = value
+    this.getLevels()
+  };
+  selectedCompany: string = ''
+
+  levels: any[] = [];
+  constructor(private compensationService: CompensationService) { }
 
   ngOnInit(): void {
   }
 
+  getLevels() {
+    this.compensationService.getExistingLevels(this.selectedCompany).subscribe((value: any) => {
+      this.levels = value.body;
+      console.log(JSON.stringify(value.body, null, 2))
+    });
+
+  }
 }

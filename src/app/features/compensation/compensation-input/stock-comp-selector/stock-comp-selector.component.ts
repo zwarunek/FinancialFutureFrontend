@@ -169,4 +169,17 @@ export class StockCompSelectorComponent implements OnInit {
     }
     return clonedObj
   }
+  getVestingSchedule(): any {
+    let rate: any[] = []
+    this.years.map(x => rate.push({
+      'year': rate.length+1,
+      'percent': x.range[1] - x.range[0]
+    }))
+    return {
+      "rate": this.compiledTimeSelected,
+      "vestingYears": rate,
+      "comp":this.stockCompensation
+
+    }
+  }
 }

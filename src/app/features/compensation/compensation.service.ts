@@ -22,8 +22,20 @@ export class CompensationService {
     return this.http.get(`http://localhost:4200/api/companies`, httpOptions)
   }
 
-  searchCompany(searchText: String) {
+  searchCompany(searchText: string) {
     // @ts-ignore
     return this.http.get('https://autocomplete.clearbit.com/v1/companies/suggest?query=' + searchText, httpOptions)
+  }
+
+  getExistingLevels(company: string) {
+    // @ts-ignore
+    return this.http.get('http://localhost:4200/api/total-compensation?company=' + company, httpOptions)
+  }
+
+  saveTotalCompensation(tcDetails: any): any {
+    return this.http.post(`http://localhost:4200/api/total-compensation`, {
+      tcDetails
+      // @ts-ignore
+    }, httpOptions)
   }
 }
