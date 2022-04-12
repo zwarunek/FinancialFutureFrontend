@@ -4,7 +4,7 @@ import {AppComponent} from "@app/app.component";
 import {CompanySearchService} from "@features/compensation/company-search/company-search.service";
 import {
   StockCompSelectorComponent
-} from "@features/compensation/compensation-input/stock-comp-selector/stock-comp-selector.component";
+} from "@features/compensation/stock-comp-selector/stock-comp-selector.component";
 import {
   ExistingLevelsComponent
 } from "@features/compensation/existing-levels/existing-levels.component";

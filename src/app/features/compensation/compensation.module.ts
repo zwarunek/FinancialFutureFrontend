@@ -9,7 +9,7 @@ import {FormsModule} from "@angular/forms";
 import {ButtonModule} from "primeng/button";
 import {CoreModule} from "@core/core.module";
 import { CompensationComponent } from './compensation.component';
-import { StockCompSelectorComponent } from './compensation-input/stock-comp-selector/stock-comp-selector.component';
+import { StockCompSelectorComponent } from './stock-comp-selector/stock-comp-selector.component';
 import { ExistingLevelsComponent } from './existing-levels/existing-levels.component';
 import { CompensationInputComponent } from './compensation-input/compensation-input.component';
 import {SliderModule} from "primeng/slider";

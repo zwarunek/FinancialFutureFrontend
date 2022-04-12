@@ -4,7 +4,7 @@ import {
 } from "@features/compensation/company-search/company-search.component";
 import {
   StockCompSelectorComponent
-} from "@features/compensation/compensation-input/stock-comp-selector/stock-comp-selector.component";
+} from "@features/compensation/stock-comp-selector/stock-comp-selector.component";
 import {CompanySearchService} from "@features/compensation/company-search/company-search.service";
 import {CompensationService} from "@features/compensation/compensation.service";
 
