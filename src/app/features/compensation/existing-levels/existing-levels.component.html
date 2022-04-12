@@ -1,23 +1,31 @@
 <div
   class="surface-card p-3 shadow-2 w-full h-full flex justify-content-center align-items-start text-600 font-medium"
-  style="border-radius: 1.5rem">EXISTING LEVELS
+  style="border-radius: 1.5rem">
   <div class="flex h-full w-full">
-    <p-table [value]="levels" responsiveLayout="scroll" [scrollable]="true" scrollHeight="210px">
+    <p-table [value]="levels" [lazy]="true" [loading]="loading" responsiveLayout="scroll" [scrollable]="true" scrollHeight="210px" class="w-full">
+      <ng-template pTemplate="caption">
+        <div class="flex align-items-center justify-content-between">
+          EXISTING LEVELS
+        </div>
+      </ng-template>
       <ng-template pTemplate="header">
         <tr>
           <th>Company</th>
+          <th>Title</th>
           <th>First Year Total Comp</th>
+          <th>AVG Total Comp</th>
           <th>Base Salary</th>
-          <th>Quantity</th>
+          <th>Stock Comp</th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-level>
         <tr>
           <td>{{level.company | titlecase}}</td>
           <td>{{level.title}}</td>
-          <td>${{level.salary}}</td>
-          <td>{{level.salary}}</td>
-          <td>{{level.quantity}}</td>
+          <td>${{level.firstYearTC | number:'1.0':'en-US' }}</td>
+          <td>${{level.avgTC | number:'1.0':'en-US' }}</td>
+          <td>${{level.salary | number:'1.0':'en-US' }}</td>
+          <td>${{level.vestingSchedule.comp | number:'1.0':'en-US' }}</td>
         </tr>
       </ng-template>
     </p-table>

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output, ViewChild, ViewChildren} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild, ViewChildren} from '@angular/core';
 import {CompensationService} from "@features/compensation/compensation.service";
 import {AppComponent} from "@app/app.component";
 import {CompanySearchService} from "@features/compensation/company-search/company-search.service";
@@ -24,10 +24,10 @@ export interface Company{
 export class CompanySearchComponent implements OnInit {
 
   public companies: Company[] = [];
-  public selectedCompany?: Company;
+  @Input() public selectedCompany?: Company;
   public virtualCompanies: Company[] = [];
   public searchText: string = '';
-  @Output() onSelectCompany = new EventEmitter<string>();
+  @Output() selectedCompanyChange = new EventEmitter<Company>();
 
   constructor(private companyService: CompensationService, private app: AppComponent) {
     this.virtualCompanies = []
@@ -43,10 +43,10 @@ export class CompanySearchComponent implements OnInit {
     else this.companies = []
   }
 
-  selectCompany(company: Company) {
+  selectCompany(company: Company | undefined) {
     this.selectedCompany = company;
     this.searchText = '';
     this.companies = []
-    this.onSelectCompany.emit(company.name?.toLowerCase() as string)
+    this.selectedCompanyChange.emit(company);
   }
 }

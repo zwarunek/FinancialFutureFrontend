@@ -1,5 +1,6 @@
-import {Component, EventEmitter, OnInit, Output, ViewChild, ViewChildren} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild, ViewChildren} from '@angular/core';
 import {
+  Company,
   CompanySearchComponent
 } from "@features/compensation/company-search/company-search.component";
 import {
@@ -25,7 +26,8 @@ export class CompensationInputComponent implements OnInit {
   employerMatch!: number;
   employerMatchEnd!: number;
   existingLevels: any[] = []
-  @Output() selectedCompany = new EventEmitter<string>();
+  @Input() selectedCompany?: Company;
+  @Output() selectedCompanyChange = new EventEmitter<Company>();
   @ViewChildren(CompanySearchComponent) companySearch: any;
   @ViewChildren(StockCompSelectorComponent) stockCompSelector: any;
 
@@ -75,8 +77,12 @@ export class CompensationInputComponent implements OnInit {
     }
     console.log(JSON.stringify(tcDetails, null, 4))
   }
-  onSelectCompany(company: string){
-    this.selectedCompany.emit(company)
+  onSelectCompany(company: Company){
+    this.selectedCompany = company
+    this.selectedCompanyChange.emit(company)
+  }
+  resetCompany() {
+    this.selectedCompany = undefined
   }
 
 }
