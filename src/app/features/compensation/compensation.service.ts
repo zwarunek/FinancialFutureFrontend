@@ -32,10 +32,18 @@ export class CompensationService {
     return this.http.get('http://localhost:4200/api/total-compensation?company=' + company, httpOptions)
   }
 
-  saveTotalCompensation(tcDetails: any): any {
-    return this.http.post(`http://localhost:4200/api/total-compensation`, {
-      tcDetails
-      // @ts-ignore
-    }, httpOptions)
+  saveLevel(levelDetails: any): any {
+     // @ts-ignore
+    return this.http.post(`http://localhost:4200/api/total-compensation`, levelDetails, httpOptions)
+  }
+
+  updateLevel(levelId: any, levelDetails: any): any {
+    // @ts-ignore
+    return this.http.put('http://localhost:4200/api/total-compensation/'+levelId, levelDetails, httpOptions)
+  }
+
+  deleteLevel(levelId: any): any {
+    // @ts-ignore
+    return this.http.delete('http://localhost:4200/api/total-compensation/'+levelId)
   }
 }

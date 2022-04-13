@@ -155,8 +155,10 @@ export class StockCompSelectorComponent implements OnInit {
 
   }
 
-  clear($event: any) {
-    console.log($event, this.vestingScheduleSelected, this.vestingScheduleOptions)
+  clear() {
+    this.vestingScheduleSelected = undefined
+    this.vestingScheduleChanged();
+    this.compiledTimeSelected = 'Yearly'
   }
   public clone(obj: any): any {
     let clonedObj: any = {}
@@ -177,9 +179,22 @@ export class StockCompSelectorComponent implements OnInit {
     }))
     return {
       "rate": this.compiledTimeSelected,
-      "vestingYears": rate,
+      "vestingYears": (this.stockCompensation !== undefined && this.stockCompensation !== 0) ? rate : [],
       "comp":this.stockCompensation
 
     }
+  }
+  setVestingSchedule(vestingSchedule: any) {
+    console.log(vestingSchedule)
+    this.years= []
+    let total = 0
+    for(let i = 0; i < vestingSchedule.vestingYears.length; i++) {
+      this.years.push({
+        'range': [total, vestingSchedule.vestingYears[i].percent + total]
+      })
+      total += vestingSchedule.vestingYears[i].percent
+    }
+    this.compiledTimeSelected = vestingSchedule.rate
+    this.stockCompensation = vestingSchedule.comp
   }
 }

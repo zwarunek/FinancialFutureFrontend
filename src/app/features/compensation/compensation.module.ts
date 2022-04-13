@@ -21,6 +21,7 @@ import {TableModule} from "primeng/table";
 import {ChipsModule} from "primeng/chips";
 import {ChipModule} from "primeng/chip";
 import {CompanySearchService} from "@features/compensation/company-search/company-search.service";
+import {RippleModule} from "primeng/ripple";
 
 
 
@@ -51,7 +52,8 @@ import {CompanySearchService} from "@features/compensation/company-search/compan
     InputNumberModule,
     TableModule,
     ChipsModule,
-    ChipModule
+    ChipModule,
+    RippleModule
   ],
   providers: [
     // CompanySearchComponent,

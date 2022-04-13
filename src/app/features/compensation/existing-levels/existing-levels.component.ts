@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CompensationService} from "@features/compensation/compensation.service";
 import {Company} from "@features/compensation/company-search/company-search.component";
 
@@ -13,13 +13,12 @@ export class ExistingLevelsComponent implements OnInit {
   @Input() set company(value: Company | undefined) {
     console.log('company', value);
     this.selectedCompany = value
-    if(this.selectedCompany?.name)
-      this.getLevels(this.selectedCompany.name)
-    else this.levels = []
+    this.refreshLevels();
   };
   loading = false;
   selectedCompany?: Company;
-
+  @Output() editLevelEvent = new EventEmitter<any>();
+  @Output() existingLevelsChanged = new EventEmitter<any>();
 
   levels: any[] = [];
   constructor(private compensationService: CompensationService) { }
@@ -53,9 +52,26 @@ export class ExistingLevelsComponent implements OnInit {
           + level.salary
           + (level.bonuses.length>0?(totalBonus / level.bonuses.length):0);
       })
-      console.log(JSON.stringify(this.levels, null, 2))
+      this.existingLevelsChanged.emit(this.levels);
       this.loading = false;
     });
 
+  }
+
+  editLevel(level: any) {
+    console.log('edit level', level);
+    this.editLevelEvent.emit(level);
+  }
+
+  deleteLevel(level: any) {
+    this.compensationService.deleteLevel(level.id)
+      .subscribe(() => {
+        this.refreshLevels();
+    })
+  }
+  refreshLevels() {
+    if(this.selectedCompany?.name)
+      this.getLevels(this.selectedCompany.name);
+    else this.levels = [];
   }
 }

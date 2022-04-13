@@ -24,7 +24,7 @@
   <div class="flex w-full mb-3 align-items-center">
     <p-dropdown class="w-full" tooltipPosition="top"
                 pTooltip="Some companies either have back-loaded or front-loaded vesting schedules"
-                [options]="vestingScheduleOptions" optionValue="schedule" (onClear)="clear($event)"
+                [options]="vestingScheduleOptions" optionValue="schedule"
                 [(ngModel)]="vestingScheduleSelected" (onChange)="vestingScheduleChanged()"
                 placeholder="Company Specific Schedules" optionLabel="company" [showClear]="true">
     </p-dropdown>

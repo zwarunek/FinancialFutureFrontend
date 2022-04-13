@@ -24,7 +24,8 @@ export interface Company{
 export class CompanySearchComponent implements OnInit {
 
   public companies: Company[] = [];
-  @Input() public selectedCompany?: Company;
+  @Input() public selectedCompany?: Company
+  @Input() public invalid: boolean = false;
   public virtualCompanies: Company[] = [];
   public searchText: string = '';
   @Output() selectedCompanyChange = new EventEmitter<Company>();

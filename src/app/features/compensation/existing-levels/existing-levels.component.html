@@ -16,6 +16,7 @@
           <th>AVG Total Comp</th>
           <th>Base Salary</th>
           <th>Stock Comp</th>
+          <th style="width: 8rem"></th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-level>
@@ -26,6 +27,16 @@
           <td>${{level.avgTC | number:'1.0':'en-US' }}</td>
           <td>${{level.salary | number:'1.0':'en-US' }}</td>
           <td>${{level.vestingSchedule.comp | number:'1.0':'en-US' }}</td>
+          <td>
+            <div class="flex justify-content-end">
+              <button pButton pRipple
+                class="btn btn-sm btn-primary p-button-sm"
+                (click)="editLevel(level)">
+                Edit
+              </button>
+              <button pButton pRipple type="button" icon="pi pi-times" class="p-button-danger" (click)="deleteLevel(level)"></button>
+            </div>
+          </td>
         </tr>
       </ng-template>
     </p-table>

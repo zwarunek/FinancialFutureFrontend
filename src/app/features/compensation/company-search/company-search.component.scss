@@ -1,0 +1,10 @@
+.invalid{
+  border-top-color: var(--error-color)!important;
+  border-bottom-color: var(--error-color)!important;
+}
+input.invalid{
+  border-left-color: var(--error-color)!important;
+}
+button.invalid{
+  border-right-color: var(--error-color)!important;
+}

@@ -9,8 +9,6 @@ import {
 import {CompanySearchService} from "@features/compensation/company-search/company-search.service";
 import {CompensationService} from "@features/compensation/compensation.service";
 
-
-// const {parse, stringify} = require('flatted/cjs');
 @Component({
   selector: 'app-compensation-input',
   templateUrl: './compensation-input.component.html',
@@ -20,20 +18,17 @@ export class CompensationInputComponent implements OnInit {
   title: string = '';
   baseSalary!: number;
   yearBonuses: any[] = [];
-  enteredBonus: any;
   hasStockCompensation: boolean = false;
-  enterHit: boolean = false;
   employerMatch!: number;
   employerMatchEnd!: number;
-  existingLevels: any[] = []
+  @Input() existingLevels: any[] = []
   @Input() selectedCompany?: Company;
   @Output() selectedCompanyChange = new EventEmitter<Company>();
-  @ViewChildren(CompanySearchComponent) companySearch: any;
-  @ViewChildren(StockCompSelectorComponent) stockCompSelector: any;
+  @Output() saveLevelEvent = new EventEmitter<any>();
+  @ViewChild(CompanySearchComponent) companySearch: any;
+  @ViewChild(StockCompSelectorComponent) stockCompSelector: any;
 
-
-
-  constructor(public companyService:CompensationService) {
+  constructor(public compensationService:CompensationService) {
   }
 
   ngOnInit(): void {
@@ -48,7 +43,7 @@ export class CompensationInputComponent implements OnInit {
     if(bonus.value != null && (event.key === 'Enter' || event.key === ',')) {
       event.preventDefault()
       if(this.yearBonuses.length <8) {
-        this.yearBonuses.push({bonus: bonus.value, year: this.yearBonuses.length + 1})
+        this.yearBonuses.push({dollarBonus: bonus.value, year: this.yearBonuses.length + 1})
         bonus.value = undefined
       }
     }
@@ -64,25 +59,59 @@ export class CompensationInputComponent implements OnInit {
       this.yearBonuses[i].year = i+1
   }
 
-  addCompensation() {
-    console.log(this.stockCompSelector)
+  saveLevel() {
     let tcDetails = {
-      'salary': this.baseSalary,
-      "company": this.companySearch.selectedCompany?.name,
+      "salary": this.baseSalary?this.baseSalary:0,
+      "company": this.selectedCompany?.name?this.selectedCompany.name:"",
       "vestingSchedule": this.stockCompSelector.getVestingSchedule(),
       "bonuses": this.yearBonuses,
-      "_401kMatch":this.employerMatch,
-      "_401kMatchEnds": this.employerMatchEnd,
+      "_401kMatch":this.employerMatch?this.employerMatch:0,
+      "_401kMatchEnds": this.employerMatchEnd?this.employerMatchEnd:0,
       "title":this.title
     }
-    console.log(JSON.stringify(tcDetails, null, 4))
+
+    let id = -1;
+    if(this.existingLevels.length > 0) {
+      this.existingLevels.forEach(level => {
+        if(level.title == this.title)
+          id = level.id;
+      })
+    }
+
+    if(id != -1) {
+      this.compensationService.updateLevel(id, tcDetails).subscribe((res: any) => {
+        this.saveLevelEvent.emit(res)
+      })
+    }
+    else {
+      this.compensationService.saveLevel(tcDetails).subscribe(() => {
+        this.saveLevelEvent.emit()
+      });
+    }
+
   }
-  onSelectCompany(company: Company){
+  selectCompany(company: Company | undefined){
     this.selectedCompany = company
     this.selectedCompanyChange.emit(company)
   }
-  resetCompany() {
-    this.selectedCompany = undefined
+  editLevel(level: any) {
+    this.title = level.title
+    this.baseSalary = level.salary
+    if(level.bonuses)
+      this.yearBonuses = level.bonuses
+    this.employerMatch = level._401kMatch
+    this.employerMatchEnd = level._401kMatchEnds
+    if(level.vestingSchedule)
+      this.stockCompSelector.setVestingSchedule(level.vestingSchedule)
   }
 
+  clear() {
+    this.title = ''
+    this.baseSalary = 0
+    this.yearBonuses = []
+    this.employerMatch = 0
+    this.employerMatchEnd = 0
+    this.selectCompany(undefined);
+    this.stockCompSelector.clear()
+  }
 }
