@@ -1,0 +1,84 @@
+<div class="h-full flex flex-column p-2"
+     style="min-width: 280px;border-radius: 1.5rem; border: var(--surface-d) solid 1px">
+  <div class="flex w-full mb-3 justify-content-center align-items-center">
+    <div class="text-600 font-medium line-height-3 flex">
+      <span>Stock Based Compensation</span>
+    </div>
+  </div>
+  <div class="flex w-full my-3 flex-row align-items-center justify-content-between">
+    <span class="p-float-label w-6">
+    <p-inputNumber class="w-full" tooltipPosition="bottom" id="stock-comp-input"
+                   pTooltip="Total dollar amount awarded for entire period" [min]="0"
+                   [(ngModel)]="stockCompensation" inputId="locale-us" prefix="$" locale="en-US">
+    </p-inputNumber>
+      <label for="stock-comp-input">Stock Comp</label>
+    </span>
+    <span class="p-float-label" [ngStyle]="{'width': '44%'}">
+      <p-dropdown [ngStyle]="{'width': '44%'}" tooltipPosition="bottom" id="compiled-time-dropdown"
+                  pTooltip="How often throughout the year your stock is granted"
+                  [options]="compiledTimeOptions" [(ngModel)]="compiledTimeSelected">
+      </p-dropdown>
+      <label for="compiled-time-dropdown">Rate/Year</label>
+    </span>
+  </div>
+  <div class="flex w-full mb-3 align-items-center">
+    <p-dropdown class="w-full" tooltipPosition="top"
+                pTooltip="Some companies either have back-loaded or front-loaded vesting schedules"
+                [options]="vestingScheduleOptions" optionValue="schedule"
+                [(ngModel)]="vestingScheduleSelected" (onChange)="vestingScheduleChanged()"
+                placeholder="Company Specific Schedules" optionLabel="company" [showClear]="true">
+    </p-dropdown>
+  </div>
+  <div class="flex flex-row h-full mb-3">
+    <div class="flex flex-column h-full w-full " *ngFor="let year of years; let i = index">
+      <div class="w-full h-full relative flex align-items-center justify-content-center">
+        <div class="w-full absolute flex align-items-center justify-content-center"
+             style="border-radius: 10px;"
+             [ngStyle]="{'height': (year.range[1] - year.range[0]) + '%',
+                     'top': (100-year.range[1]) + '%',
+                     'background-color': 'var(--primary-color)',
+                     'filter': 'brightness(' + ((year.range[1])*.40+60) + '%)'}">
+          <span style="opacity: 100%; color: white">{{year.range[1]
+          - year.range[0] | number: '1.0-2'}}%</span>
+
+        </div>
+        <div *ngIf="year.range[1] - year.range[0] >= 10"
+             class="w-5 absolute flex align-items-center justify-content-center"
+             style="border-radius: 10px;"
+             [ngStyle]="{'height': '2px',
+                     'top': (100-year.range[1]+1) + '%',
+                     'background-color': 'rgba(' +((year.range[1])*.65+35)/100*118
+                                          + ', ' +((year.range[1])*.65+35)/100*168
+                                          + ', ' +((year.range[1])*.65+35)/100*200 + ')'}">
+
+        </div>
+        <div *ngIf="year.range[1] - year.range[0] >= 10"
+             class="w-5 absolute flex align-items-center justify-content-center"
+             style="border-radius: 10px;"
+             [ngStyle]="{'height': '2px',
+                     'top': (100-year.range[0]-2) + '%',
+                     'background-color': 'rgba(' +((year.range[1])*.65+35)/100*118
+                                          + ', ' +((year.range[1])*.65+35)/100*168
+                                          + ', ' +((year.range[1])*.65+35)/100*200 + ')'}">
+
+        </div>
+        <p-slider id="slider-{{i}}" #slider
+                  class="w-full h-full relative flex align-items-center justify-content-center"
+                  [ngStyle]="{'top': '-3px'}"
+                  [(ngModel)]="year.range"
+                  [range]="true" [step]="1" (onChange)="rebalance(i, year.range, slider)"
+                  orientation="vertical"></p-slider>
+      </div>
+      <div class="flex justify-content-center align-items-center mt-2">
+        <span class="text-600 text-m font-medium">{{i + 1}}</span>
+      </div>
+    </div>
+  </div>
+  <div class="flex flex-row h-2rem justify-content-center ">
+    <p-button styleClass="p-button-sm" icon="pi pi-minus" (click)="removeYear()"></p-button>
+    <div class="mx-2 flex align-items-center">
+      Years
+    </div>
+    <p-button styleClass="p-button-sm" icon="pi pi-plus" (click)="addYear()"></p-button>
+  </div>
+</div>

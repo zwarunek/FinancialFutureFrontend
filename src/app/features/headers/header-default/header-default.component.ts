@@ -191,13 +191,6 @@ export class HeaderDefaultComponent implements OnInit {
   getItemsForAccountMenu(){
     return [
       {
-        label: 'Start Loading',
-        icon: 'pi pi-spin pi-spinner',
-        command: () => {
-          this.app.loadingAdd();
-        }
-      },
-      {
         label: this.viewMode.includes("dark")? "Light Mode" : "Dark Mode",
         icon: this.viewMode.includes("dark")? "pi pi-sun" : "pi pi-moon",
         command: () => {

@@ -5,6 +5,7 @@ import { HomePageRoutingModule } from './home-page-routing.module';
 import { HomePageComponent } from './home-page.component';
 import {HeadersModule} from "@features/headers/headers.module";
 import {FootersModule} from "@features/footers/footers.module";
+import {CompensationModule} from "@features/compensation/compensation.module";
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import {FootersModule} from "@features/footers/footers.module";
     CommonModule,
     HomePageRoutingModule,
     HeadersModule,
-    FootersModule
+    FootersModule,
+    CompensationModule
   ]
 })
 export class HomePageModule { }

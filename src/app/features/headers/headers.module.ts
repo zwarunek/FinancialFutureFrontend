@@ -8,16 +8,19 @@ import {AvatarModule} from "primeng/avatar";
 import {MenuModule} from "primeng/menu";
 import {ButtonModule} from "primeng/button";
 import {RippleModule} from "primeng/ripple";
+import { HeaderConstructionComponent } from './header-construction/header-construction.component';
 
 
 @NgModule({
   declarations: [
     HeaderAuthComponent,
-    HeaderDefaultComponent
+    HeaderDefaultComponent,
+    HeaderConstructionComponent
   ],
   exports: [
     HeaderAuthComponent,
-    HeaderDefaultComponent
+    HeaderDefaultComponent,
+    HeaderConstructionComponent
   ],
   imports: [
     CommonModule,

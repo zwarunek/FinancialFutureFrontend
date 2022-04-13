@@ -1,0 +1,52 @@
+
+:host ::ng-deep .p-slider-vertical{
+  height: 100% !important;
+  width: 100% !important;
+  margin: 0 !important;
+  background-color: transparent;
+}
+:host ::ng-deep .p-slider-handle{
+  width: 100% !important;
+  height: 10px !important;
+  left: 8px !important;
+  cursor: n-resize !important;
+  background-color: rgba(0, 0, 0, 0) !important;
+  border: none transparent !important;
+}
+:host ::ng-deep .p-slider-handle:hover{
+  box-shadow: none !important;
+  background-color: rgba(0, 0, 0, 0) !important;
+  border: none transparent !important;
+  outline: transparent none !important;
+}
+:host ::ng-deep .p-slider-handle:focus{
+  box-shadow: none !important;
+  background-color: rgba(0, 0, 0, 0) !important;
+  border: none transparent !important;
+  outline: transparent none !important;
+}
+:host ::ng-deep .p-slider-handle:focus-visible {
+  box-shadow: none !important;
+  background-color: rgba(0, 0, 0, 0) !important;
+  border: none transparent !important;
+  outline: transparent none !important;
+}
+:host ::ng-deep .p-slider-range{
+  background-color: transparent;
+}
+:host ::ng-deep .p-dropdown{
+  width: 100%;
+}
+:host ::ng-deep .p-inputnumber-input{
+  width: 100%;
+}
+::ng-deep .p-chips{
+  width: 100%;
+}
+::ng-deep .p-chips .p-chips-multiple-container{
+  width: 100%;
+}
+:host ::ng-deep .p-dropdown-label{
+  height: 32px;
+
+}

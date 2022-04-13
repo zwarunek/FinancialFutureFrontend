@@ -2,14 +2,6 @@ import { NgModule } from '@angular/core';
 import {RouterModule, Routes} from "@angular/router";
 
 const routes: Routes = [
-  // {path: '', component: HomeComponent, canActivate: [AuthGuard]},
-  // {path: 'login', component: LoginComponent},
-  // {path: 'register', component: RegisterComponent},
-  // {path: 'forgotpassword', component: ForgotPasswordComponent},
-  // {path: 'passwordreset', component: PasswordResetComponent},
-  // {path: 'register/confirm', component: ConfirmAccountComponent},
-  //
-  // {path: '**', redirectTo: ''}
 
   {
     path: 'login',
@@ -35,13 +27,20 @@ const routes: Routes = [
     path: 'register/confirm',
     loadChildren: () => import('./pages/confirm-account-page/confirm-account-page.module').then((m) => m.ConfirmAccountPageModule),
   },
-  {path: '**', redirectTo: ''}
+  {path: '**', redirectTo: ''},
+  // {
+  //   path: '',
+  //   loadChildren: () => import('./pages/under-construction-page/under-construction-page.module').then((m) => m.UnderConstructionPageModule),
+  // },
+  // {path: '**', redirectTo: ''}
 
 ];
 
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {
+    initialNavigation: 'enabledBlocking'
+})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
