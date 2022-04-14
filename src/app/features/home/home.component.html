@@ -63,6 +63,16 @@
               </button>
             </div>
           </td>
+          <td>
+            <p-dropdown [(ngModel)]="year.level" [options]="year.levels" (onChange)="test($event, years.indexOf(year))" filterBy="title" optionLabel="title" placeholder="Level">
+              <ng-template let-level pTemplate="item">
+                <div>{{level.title}}</div>
+              </ng-template>
+            </p-dropdown>
+          </td>
+          <td>
+            <div *ngIf="year.level !== undefined">${{year.level.salary | number:'1.0':'en-US' }}</div>
+          </td>
         </tr>
       </ng-template>
     </p-table>

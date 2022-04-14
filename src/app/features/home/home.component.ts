@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
   startingAge: number = 20;
   companies: any[] = [];
 
-  constructor(private companyService: CompensationService, private cdr: ChangeDetectorRef) { }
+  constructor(private compensationService: CompensationService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.cols = [
@@ -120,7 +120,7 @@ export class HomeComponent implements OnInit {
   }
   inputChanged(index: number){
     if(this.years[index].company !== '') {
-      this.companyService.searchCompany(this.years[index].company).subscribe((value: any) => {
+      this.compensationService.searchCompany(this.years[index].company).subscribe((value: any) => {
         this.years[index].companies = value.body;
       });
     }
@@ -130,11 +130,21 @@ export class HomeComponent implements OnInit {
   selectCompany(company: any, index: number) {
     this.years[index].company = company;
     this.years[index].companies = []
+
+    this.compensationService.getExistingLevels(company.name).subscribe((value: any) => {
+      this.years[index].levels = value.body;
+      console.log(this.years[index].levels);
+    });
+    this.years[index].level = undefined;
     this.cdr.detectChanges();
   }
 
   removeCompany(index: number) {
     this.years[index].company = '';
     this.cdr.detectChanges();
+  }
+
+  test(event: Event, index: number) {
+    console.log(event, this.years);
   }
 }
