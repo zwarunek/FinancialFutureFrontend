@@ -6,6 +6,7 @@ import { HomePageComponent } from './home-page.component';
 import {HeadersModule} from "@features/headers/headers.module";
 import {FootersModule} from "@features/footers/footers.module";
 import {CompensationModule} from "@features/compensation/compensation.module";
+import {HomeModule} from "@app/features/home/home.module";
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import {CompensationModule} from "@features/compensation/compensation.module";
     HomePageRoutingModule,
     HeadersModule,
     FootersModule,
-    CompensationModule
+    CompensationModule,
+    HomeModule
   ]
 })
 export class HomePageModule { }

@@ -12,6 +12,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/home-page/home-page.module').then((m) => m.HomePageModule),
   },
   {
+    path: 'levels',
+    loadChildren: () => import('./pages/create-levels-page/create-levels-page.module').then((m) => m.CreateLevelsPageModule),
+  },
+  {
     path: 'register',
     loadChildren: () => import('./pages/register-page/register-page.module').then((m) => m.RegisterPageModule),
   },
@@ -27,12 +31,7 @@ const routes: Routes = [
     path: 'register/confirm',
     loadChildren: () => import('./pages/confirm-account-page/confirm-account-page.module').then((m) => m.ConfirmAccountPageModule),
   },
-  {path: '**', redirectTo: ''},
-  // {
-  //   path: '',
-  //   loadChildren: () => import('./pages/under-construction-page/under-construction-page.module').then((m) => m.UnderConstructionPageModule),
-  // },
-  // {path: '**', redirectTo: ''}
+  {path: '**', redirectTo: ''}
 
 ];
 

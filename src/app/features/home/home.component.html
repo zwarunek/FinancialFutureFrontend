@@ -1,0 +1,70 @@
+<div class="flex">
+  <div class="surface-card p-3 mt-3 shadow-2 w-full h-full flex justify-content-start align-items-center flex-column text-600 font-medium h-full"
+       style="border-radius: 1.5rem">
+    <button (click)="addYear()" pButton pRipple type="button">Add Year</button>
+    <button (click)="removeYear()" pButton pRipple type="button">Remove Year</button>
+    <p-table [value]="years">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Age</th>
+          <th>State</th>
+          <th>Company</th>
+          <th>Level</th>
+          <th>Base Salary</th>
+          <th>Stock Comp</th>
+          <th>Bonus</th>
+          <th>Total Comp</th>
+        </tr>
+      </ng-template>
+      <ng-template let-year pTemplate="body">
+        <tr>
+          <td>{{year.age}}</td>
+          <td>
+            <p-dropdown [(ngModel)]="year.state" [filter]="true" [options]="states" filterBy="name" optionLabel="name"
+                        placeholder="State">
+              <ng-template let-state pTemplate="item">
+                <div>{{state.name}}</div>
+              </ng-template>
+            </p-dropdown>
+          </td>
+          <td #companyInput style="width: 200px">
+            <div *ngIf="year.company.name == undefined">
+              <input (input)="inputChanged(years.indexOf(year))" [(ngModel)]="year.company" pInputText
+                     placeholder="Company">
+              <div [ngStyle]="{'top': companyInput.getBoundingClientRect().bottom, 'left': companyInput.getBoundingClientRect().left}" class="block shadow-2 border-round absolute"
+                   style=" background-color: var(--surface-d);">
+                <div *ngFor="let company of year.companies" class="block h-3rem flex justify-content-between p-2"
+                     (click)="selectCompany(company, years.indexOf(year))"
+                     style="border-bottom: var(--surface-b) solid 1px; cursor: pointer">
+                  <div class="flex flex-row mr-2">
+                    <div class="flex justify-content-center align-items-center w-2rem pr-2">
+                      <img
+                              [alt]="company.name"
+                              [default]="'assets/logos/FinancialFutureLogo.svg'" [src]="company.logo + '?size=28'"
+                              style="max-width: 2rem; max-height: 2rem; width: auto; height: auto; display: block; border-radius: 4px">
+                    </div>
+                    <div class="flex justify-content-center align-items-center">
+                      <span class="text-900 text-lg font-medium">{{company.name}}</span>
+                    </div>
+                  </div>
+                  <div class="flex align-items-center" style="white-space: nowrap; overflow: hidden;">
+                  <span class="text-600 text-base font-medium w-full"
+                        style="text-overflow: ellipsis; overflow: hidden;">{{company.domain}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="year.company.name != undefined" class="flex align-items-center">
+              <img src="{{year.company.logo}}" alt="{{year.company.name}}" class="mr-2" style="max-width: 2rem; max-height: 2rem; width: auto; height: auto; display: block; border-radius: 4px">
+              <span style="max-width: 95px; overflow-wrap: break-word;" class="mr-2">{{year.company.name}}</span>
+              <button (click)="removeCompany(years.indexOf(year))" pButton pRipple type="button" icon="pi pi-times"
+                      class="p-button-rounded p-button-secondary p-button-text">
+              </button>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
